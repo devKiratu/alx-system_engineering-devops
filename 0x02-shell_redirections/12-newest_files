@@ -1,2 +1,2 @@
 #!/bin/bash
-ls -lat | grep ^- | head
+ls -1t | head
