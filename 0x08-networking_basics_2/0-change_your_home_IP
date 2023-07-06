@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# This script configures an Ubuntu server with the below requirements:
+#	- localhost resolves to 127.0.0.2
+#	- facebook.com resolves to 8.8.8.8
+
+# copy /etc/hosts file to ~/hosts.new to allow editing
+cp /etc/hosts ~/hosts.new
+
+# change ip address for localhost to 127.0.0.2 in the hosts.new file
+sed -i s/127.0.0.1/127.0.0.2/ ~/hosts.new
+
+# append new facebook.com ip address in the hosts.new file
+echo -e 8.8.8.8 '\t' facebook.com >> ~/hosts.new
+
+# overwrite the /etc/hosts file with new configuration
+cp -f ~/hosts.new /etc/hosts
