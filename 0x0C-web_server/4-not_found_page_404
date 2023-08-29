@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# This script creates a custom 404 page and configures the nginx server to use it
+
+# create custom 404 page
+echo "Ceci n'est pas une page" > 404.html
+
+# copy the 404 page to html folder
+sudo bash -c "mv 404.html /usr/share/nginx/html"
+
+# configure default.conf to use the 404.html file
+config_404="    error_page  404              /404.html;"
+sudo sed -i "/#error_page  404/c\\$config_404" /etc/nginx/conf.d/default.conf
+
+# reload configuration
+sudo nginx -s reload
