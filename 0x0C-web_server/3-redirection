@@ -36,7 +36,7 @@ sudo bash -c "echo 'Hello World!' > /usr/share/nginx/html/index.html"
 sudo nginx
 
 # configure route /redirect_me
-redirect_block="    #error_page  404              /404.html;\n\n    location /redirect_me {\n        return 301 https://www.google.com;\n    }\n"
+redirect_block="    #error_page  404              /404.html;\n\n    location /redirect_me {\n        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\n    }\n"
 sudo sed -i "/#error_page  404/c\\$redirect_block" /etc/nginx/conf.d/default.conf
 
 # reload configuration
