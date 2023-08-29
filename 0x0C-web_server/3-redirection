@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+# This script installs nginx on an ubuntu server and:
+#	- sets the default page to respond with 'Hello world!'
+#	- redirects the route /redirect_me to google.com
+
+# install nginx - steps
+# 1. refresh package repository information
+sudo apt update
+
+# 2. Install the prerequisites 
+sudo apt install curl gnupg2 ca-certificates lsb-release ubuntu-keyring -y
+
+# 3. Import an official nginx signing key so apt could verify the packages authenticity. Fetch the key:
+curl https://nginx.org/keys/nginx_signing.key | gpg --dearmor \
+    | sudo tee /usr/share/keyrings/nginx-archive-keyring.gpg >/dev/null
+
+# 4. Set up the apt repository for stable nginx packages:
+echo "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] \
+	http://nginx.org/packages/ubuntu $(lsb_release -cs) nginx" \
+    | sudo tee /etc/apt/sources.list.d/nginx.list
+
+# 5. Set up repository pinning to prefer our(nginx) packages over distribution-provided ones:
+echo -e "Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: 900\n" \
+    | sudo tee /etc/apt/preferences.d/99nginx
+
+# 6. refresh package repository to include new configurations
+sudo apt update
+
+# 7. Finally install nginx
+sudo apt install nginx -y
+
+# Change the content of the default page served
+sudo bash -c "echo 'Hello World!' > /usr/share/nginx/html/index.html"
+
+# Start nginx
+sudo nginx
+
+# configure route /redirect_me
+redirect_block="    #error_page  404              /404.html;\n\n    location /redirect_me {\n        return 301 https://www.google.com;\n    }\n"
+sudo sed -i "/#error_page  404/c\\$redirect_block" /etc/nginx/conf.d/default.conf
+
+# reload configuration
+sudo nginx -s reload
