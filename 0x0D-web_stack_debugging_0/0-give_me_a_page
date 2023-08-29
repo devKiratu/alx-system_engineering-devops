@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# This scripts fixes the issue of server not returning a page. This is solved by accessing the 
+# 	shell from the running apache container and starting the server
+
+sudo service apache2 start
