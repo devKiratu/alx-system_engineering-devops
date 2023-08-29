@@ -2,7 +2,7 @@
 # This script creates a custom 404 page and configures the nginx server to use it
 
 # create custom 404 page
-echo "Ceci n'est pas une page" > 404.html
+echo -e "Ceci n'est pas une page\n" > 404.html
 
 # copy the 404 page to html folder
 sudo bash -c "mv 404.html /usr/share/nginx/html"
