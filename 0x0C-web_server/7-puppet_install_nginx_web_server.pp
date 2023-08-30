@@ -12,8 +12,16 @@
   }
 
   # set homepage to return 'Hello World!'
-  file { '/var/www/html/index.nginx-debian.html':
+  file { '/var/www/html/index.html':
     content => "Hello World!\n",
+    require => Package['nginx']
+  }
+
+  # set redirection for route /redirect_me
+  $redirect_block ="\\\n\\n\tlocation /redirect_me {\\n\t\treturn 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\\n\t}\\n"
+
+  exec { 'configure_redirect_me':
+    command => "/usr/bin/sed -i \"/server_name _;/a\\${redirect_block}\" /etc/nginx/sites-enabled/default",
     require => Package['nginx']
   }
 
