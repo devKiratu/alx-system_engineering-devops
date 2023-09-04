@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# This script Installs and configures HAproxy on a brand new server and
+# configures it to redistribute traffic between two servers web-01 and web-02
+
+# update package repository
+sudo apt update
+
+# enable dedicated PPA
+sudo apt install --no-install-recommends software-properties-common -y
+sudo add-apt-repository ppa:vbernat/haproxy-2.8 -y
+
+# install haproxy 2.8.*
+sudo apt install haproxy=2.8.\* -y
+
+# configure load balancing 
+fe_text="\nfrontend web-fe\n\tmode http\n\tbind *:80\n\tdefault_backend web-be\n"
+be_text="backend web-be\n\tbalance roundrobin\n\tmode http\n\tserver web-01 100.26.49.192:80 check\n\tserver web-02 107.22.143.52:80 check\n"
+
+sudo sed -i "\$a\\$fe_text" /etc/haproxy/haproxy.cfg
+sudo sed -i "\$a\\$be_text" /etc/haproxy/haproxy.cfg
+
+# restart haproxy to reload configuration
+sudo service haproxy restart
