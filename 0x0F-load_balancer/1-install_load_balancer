@@ -3,7 +3,7 @@
 # configures it to redistribute traffic between two servers web-01 and web-02
 
 # update package repository
-sudo apt update
+sudo apt update -y
 
 # install haproxy 
 sudo apt install haproxy -y
