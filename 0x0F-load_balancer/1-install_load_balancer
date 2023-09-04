@@ -10,7 +10,7 @@ sudo apt install haproxy -y
 
 # configure load balancing 
 fe_text="\nfrontend web-fe\n\tmode http\n\tbind *:80\n\tno option http-use-htx\n\tdefault_backend web-be\n"
-be_text="backend web-be\n\tbalance roundrobin\n\tmode http\n\tserver web-01 100.26.49.192:80 check\n\tserver web-02 107.22.143.52:80 check\n\tno option http-use-htx\n\thttp-response add-header Connection keep-alive\n"
+be_text="backend web-be\n\tbalance roundrobin\n\tmode http\n\tserver 279151-web-01 100.26.49.192:80 check\n\tserver 279151-web-02 107.22.143.52:80 check\n\tno option http-use-htx\n\thttp-response add-header Connection keep-alive\n"
 
 sudo sed -i "\$a\\$fe_text" /etc/haproxy/haproxy.cfg
 sudo sed -i "\$a\\$be_text" /etc/haproxy/haproxy.cfg
