@@ -14,6 +14,7 @@ be_text="backend web-be\n\tbalance roundrobin\n\tmode http\n\tserver web-01 100.
 
 sudo sed -i "\$a\\$fe_text" /etc/haproxy/haproxy.cfg
 sudo sed -i "\$a\\$be_text" /etc/haproxy/haproxy.cfg
+sudo sed -i '$a\ENABLED=1' /etc/default/haproxy
 
 # restart haproxy to reload configuration
 sudo service haproxy restart
