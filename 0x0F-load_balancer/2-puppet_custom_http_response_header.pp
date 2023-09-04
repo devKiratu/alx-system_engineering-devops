@@ -11,22 +11,10 @@
     require => Exec['update_packages']
   }
 
-  # set homepage to return 'Hello World!'
-  file { '/var/www/html/index.html':
-    content => "Hello World!\n",
-    require => Package['nginx']
-  }
+  # add custom headers
+  $redirect_block ="\\\n\\n\tadd_header X-Served-By ${hostname};\\n"
 
-  # set custom 404 page
-  file { '/var/www/html/404.html':
-    content => "Ceci n'est pas une page\n\n",
-    require => Package['nginx']
-  }
-
-  # set redirection for route /redirect_me
-  $redirect_block ="\\\n\\n\tadd_header X-Served-By ${hostname};\\n\\n\terror_page 404 \t/404.html;\\n\\n\tlocation /redirect_me {\\n\t\treturn 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\\n\t}\\n\\n"
-
-  exec { 'configure_redirect_me':
+  exec { 'add_header':
     command => "/usr/bin/sed -i \"/server_name _;/a\\${redirect_block}\" /etc/nginx/sites-enabled/default",
     require => Package['nginx']
   }
