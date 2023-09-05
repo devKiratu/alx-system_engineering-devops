@@ -6,9 +6,8 @@
   }
 
   # Install nginx
-  package { 'nginx':
-    ensure  => installed,
-    require => Exec['update_packages']
+  exec { 'install_nginx':
+    command => '/usr/bin/apt install nginx -y',
   }
 
   # add custom headers
@@ -16,11 +15,9 @@
 
   exec { 'add_header':
     command => "/usr/bin/sed -i \"/server_name _;/a\\${redirect_block}\" /etc/nginx/sites-enabled/default",
-    require => Package['nginx']
   }
 
   # run nginx
   exec { 'run_nginx':
     command => '/usr/sbin/service nginx restart',
-    require => Package['nginx']
   }
