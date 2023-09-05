@@ -15,7 +15,7 @@
   $redirect_block ="\\\n\\n\tadd_header X-Served-By ${hostname};\\n"
 
   exec { 'add_header':
-    command => "/usr/bin/sed -i \"/http {/a\\${redirect_block}\" /etc/nginx/nginx.conf",
+    command => "/usr/bin/sed -i \"/server_name _;/a\\${redirect_block}\" /etc/nginx/sites-enabled/default",
     require => Package['nginx']
   }
 
