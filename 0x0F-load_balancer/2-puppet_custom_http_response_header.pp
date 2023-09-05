@@ -20,8 +20,7 @@
   }
 
   # run nginx
-  service { 'nginx':
-    ensure  => running,
-    enable  => true,
+  exec { 'run_nginx':
+    command => '/usr/sbin/service nginx restart',
     require => Package['nginx']
   }
