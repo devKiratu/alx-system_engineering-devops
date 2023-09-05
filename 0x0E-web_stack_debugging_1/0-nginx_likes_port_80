@@ -10,4 +10,3 @@ sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 # restart server
 sudo service nginx stop
 sudo service nginx start
-~                          
