@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# This script fixes an nginx server that is not listening on port 80
+
+# remove the faulty config file
+sudo rm -rf /etc/nginx/sites-enabled/default
+
+# copy the right config file into sites-enabled
+sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+
+# restart server
+sudo service nginx stop
+sudo service nginx start
+~                          
