@@ -14,7 +14,7 @@ sudo sed -i '/listen \[::\]:80 default_server ipv6only=on;/c\\tlisten \[::\]:808
 sudo pkill -f apache2
 
 # update nginx.conf permissions
-chmod 644 /etc/nginx/nginx.conf
+sudo chmod 644 /etc/nginx/nginx.conf
 
 # run nginx
 sudo -u nginx service nginx restart
