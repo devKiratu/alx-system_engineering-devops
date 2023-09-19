@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# This script configures nginx to fulfill the following requirements:
+#	- nginx must be running as nginx user
+# 	- nginx must be listening on all active IPs on port 8080
+
+# name nginx user `nginx`
+sudo sed -i '/#user www-data;/c\user nginx;' /etc/nginx/nginx.conf
+
+# make nginx listen on port 8080
+sudo sed -i '/listen 80 default_server;/c\\tlisten 8080 default_server;' /etc/nginx/sites-enabled/default
+sudo sed -i '/listen \[::\]:80 default_server ipv6only=on;/c\\tlisten \[::\]:8080 default_server ipv6only=on;' /etc/nginx/sites-enabled/default
+
+# stop apache2 to free port 8080
+sudo pkill -f apache2
+
+# run nginx
+sudo service nginx restart
