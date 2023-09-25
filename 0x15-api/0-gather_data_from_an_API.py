@@ -9,18 +9,18 @@ import sys
 
 if __name__ == "__main__":
     if len(sys.argv) == 2:
-        user_url = f"https://jsonplaceholder.typicode.com/users/{sys.argv[1]}"
-        res = requests.get(user_url)
-        user_data = res.json()
-        user_name = user_data.get("name")
+        user_id = sys.argv[1]
+        user_url = f"https://jsonplaceholder.typicode.com/users/{user_id}"
+        user_data = requests.get(user_url).json()
 
         todos_url = "https://jsonplaceholder.typicode.com/todos"
-        res = requests.get(todos_url, params={'userId': sys.argv[1]})
-        todos = res.json()
+        todos = requests.get(todos_url, params={'userId': user_id}).json()
+
         completed_todos = list(filter(
             lambda todo: todo.get("completed"), todos))
+
         output = "Employee {} is done with tasks({}/{}):".format(
-                user_name, len(completed_todos), len(todos)
+                user_data.get("name"), len(completed_todos), len(todos)
                 )
         print(output)
         for todo in completed_todos:
