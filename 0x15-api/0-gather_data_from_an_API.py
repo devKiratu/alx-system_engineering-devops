@@ -19,7 +19,7 @@ if __name__ == "__main__":
         todos = res.json()
         completed_todos = list(filter(
             lambda todo: todo.get("completed"), todos))
-        output = "Employee {} is done with tasks({}/{})".format(
+        output = "Employee {} is done with tasks({}/{}):".format(
                 user_name, len(completed_todos), len(todos)
                 )
         print(output)
