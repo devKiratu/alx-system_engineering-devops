@@ -10,7 +10,7 @@ import sys
 if __name__ == "__main__":
     if len(sys.argv) == 2:
         user_id = sys.argv[1]
-        user_url = f"https://jsonplaceholder.typicode.com/users/{sys.argv[1]}"
+        user_url = f"https://jsonplaceholder.typicode.com/users/{user_id}"
         user_data = requests.get(user_url).json()
 
         todos_url = "https://jsonplaceholder.typicode.com/todos"
