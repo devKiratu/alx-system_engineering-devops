@@ -21,23 +21,12 @@ if __name__ == "__main__":
         todos = res.json()
         completed_todos = list(filter(
             lambda todo: todo.get("completed"), todos))
-        output = "Employee {} is done with tasks({}/{})".format(
+        output = "Employee {} is done with tasks({}/{}):".format(
                 user_name, len(completed_todos), len(todos)
                 )
         print(output)
         for todo in completed_todos:
             print("\t {}".format(todo.get("title")))
-
-        # export data to csv
-        filename = "{}.csv".format(sys.argv[1])
-        with open(filename, 'a', encoding='utf-8') as f:
-            for todo in todos:
-                line = "\"{}\",\"{}\",\"{}\",\"{}\"\n".format(
-                        user_id,
-                        user_data.get('username'),
-                        todo.get('completed'),
-                        todo.get('title'))
-                f.write(line)
 
         # export json data
         jsonfile = "{}.json".format(user_id)
@@ -46,7 +35,7 @@ if __name__ == "__main__":
         for todo in todos:
             obj = {}
             obj["task"] = "{}".format(todo.get('title'))
-            obj["completed"] = "{}".format(todo.get('completed'))
+            obj["completed"] = todo.get('completed')
             obj["username"] = "{}".format(user_data.get('username'))
             formatted_todos.append(obj)
         user_obj[user_id] = formatted_todos
