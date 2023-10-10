@@ -6,7 +6,7 @@ import requests
 
 def top_ten(subreddit):
     """Returns the top ten hot posts' titles of a given subreddit"""
-    url = "https://www.reddit.com/r/{}/hot.json?limit=9".format(subreddit)
+    url = "https://www.reddit.com/r/{}/hot.json?limit=10".format(subreddit)
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64;\
                 rv:109.0) Gecko/20100101 Firefox/118.0'}
     res = requests.get(url, headers=headers, allow_redirects=False)
