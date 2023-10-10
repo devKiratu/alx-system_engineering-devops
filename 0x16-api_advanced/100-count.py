@@ -5,10 +5,10 @@ import requests
 after = None
 
 
-def recurse(subreddit, hot_list=[]):
+def count_words(subreddit, word_list=[]):
     """recursively queries a subreddit for all hot topics"""
     url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
-    headers = {'User-Agent': 'ethan_hunt'}
+    headers = {'User-Agent': 'the_ethan_hunt'}
     global after
     params = {'after': after}
 
@@ -19,8 +19,8 @@ def recurse(subreddit, hot_list=[]):
     if posts is None:
         return None
     for post in posts:
-        hot_list.append(post.get('data', {}).get('title'))
+        word_list.append(post.get('data', {}).get('title'))
     after = data.get('after')
     if after is None:
-        return hot_list
-    return recurse(subreddit, hot_list)
+        return word_list
+    return count_words(subreddit, word_list)
