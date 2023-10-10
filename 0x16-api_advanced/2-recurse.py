@@ -8,12 +8,12 @@ after = None
 def recurse(subreddit, hot_list=[]):
     """recursively queries a subreddit for all hot topics"""
     url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
-    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64;\
-                rv:109.0) Gecko/20100101 Firefox/118.0'}
+    headers = {'User-Agent': 'ethan_hunt'}
     global after
     params = {'after': after}
 
-    res = requests.get(url, headers=headers, params=params)
+    res = requests.get(url, headers=headers, params=params,
+                       allow_redirects=False)
     data = res.json().get('data', {})
     posts = data.get('children', None)
     if posts is None:
