@@ -19,6 +19,12 @@ server {
                 proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         }
 
+        location /airbnb-onepage/ {
+                proxy_pass http://127.0.0.1:5000;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        }
 
         location / {
                 proxy_pass http://127.0.0.1:5003/2-hbnb;
@@ -31,13 +37,6 @@ server {
         location /static/ {
                 alias /home/ubuntu/AirBnB_clone_v4/web_dynamic/static/;
         }
-
-        #location / {
-        #       proxy_pass http://127.0.0.1:5000;
-        #       proxy_set_header Host $host;
-        #       proxy_set_header X-Real-IP $remote_addr;
-        #       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        #}
 }
 
 server {
@@ -61,6 +60,12 @@ server {
                 proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         }
 
+        location /airbnb-onepage/ {
+                proxy_pass http://127.0.0.1:5000;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        }
 
         location / {
                 proxy_pass http://127.0.0.1:5003/2-hbnb;
@@ -73,11 +78,5 @@ server {
         location /static/ {
                 alias /home/ubuntu/AirBnB_clone_v4/web_dynamic/static/;
         }
-
-        #location / {
-        #       proxy_pass http://127.0.0.1:5000;
-        #       proxy_set_header Host $host;
-        #       proxy_set_header X-Real-IP $remote_addr;
-        #       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        #}
 }
+
